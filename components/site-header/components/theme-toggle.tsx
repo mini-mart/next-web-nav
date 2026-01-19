@@ -8,6 +8,11 @@ import { Button } from "@/components/ui/button"
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = React.useState(false)
+
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const isDark = theme === "dark"
   const toggleTheme = () => {
@@ -45,6 +50,14 @@ export function ThemeToggle() {
     }
 
     toggleViewTransition(event)
+  }
+
+  if (!mounted) {
+    return (
+      <Button variant="ghost" size="icon" className="rounded-full" onClick={handleToggleTheme}>
+        <Sun className="h-4 w-4" />
+      </Button>
+    )
   }
 
   return (
